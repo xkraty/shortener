@@ -1,0 +1,21 @@
+<% short_link = short_url(link.slug) %>
+<div class="bg-white/15 backdrop-blur-lg border border-white/20 rounded-xl p-4 space-y-2 shadow-lg mt-8">
+  <div class="text-white/60 text-sm">Your shortened URL:</div>
+  <div class="flex items-center justify-between gap-4">
+    <%= link_to short_link,
+        class: "text-white hover:text-blue-200 transition flex items-center gap-2",
+        target: "_blank" do %>
+      <%= short_link %>
+      <svg class="w-4 h-4"><%= render "icons/external_link" %></svg>
+    <% end %>
+    <button 
+      data-controller="clipboard"
+      data-clipboard-text="<%= short_link %>"
+      data-action="clipboard#copy"
+      class="flex items-center gap-2 text-white/80 hover:text-white transition px-4 py-2 rounded-lg bg-white/15 backdrop-blur-lg border border-white/20"
+    >
+      <svg class="w-4 h-4" data-clipboard-target="icon"><%= render "icons/copy" %></svg>
+      <span data-clipboard-target="text">Copy</span>
+    </button>
+  </div>
+</div>
