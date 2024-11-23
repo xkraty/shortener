@@ -56,8 +56,9 @@ accessories:
 
   promtail:
     image: grafana/promtail:latest
-    host: your-rails-app-server.com
+    host: s.campoli.me
+    files:
+      - config/promtail/config.yml:/etc/promtail/config.yml
     volumes:
       - "/var/log:/var/log"
       - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
-      - "./config/promtail:/etc/promtail"
