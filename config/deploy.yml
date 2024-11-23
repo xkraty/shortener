@@ -23,6 +23,9 @@ builder:
 env:
   clear:
     APP_HOST: s.campoli.me
+    RAILS_LOG_TO_STDOUT: true
+    PROMETHEUS_EXPORTER_PORT: 9394
+    LOG_LEVEL: info
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PORT
@@ -50,3 +53,12 @@ accessories:
         - POSTGRES_USER
         - POSTGRES_PASSWORD
         - POSTGRES_HOST
+  
+  promtail:
+    image: grafana/promtail:latest
+    host: s.campoli.me
+    volumes:
+      - "/var/log:/var/log"
+      - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
+      - "./config/promtail:/etc/promtail"
+    command: -config.file=/etc/promtail/config.yml
