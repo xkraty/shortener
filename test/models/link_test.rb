@@ -45,12 +45,16 @@ class LinkTest < ActiveSupport::TestCase
   end
 
   test "should memoize short url" do
+    original_host = ENV["APP_HOST"]
+
     @link.slug = "abc123"
     first_call = @link.short_link
 
-    ENV["APP_URL"] = "different-url"
+    ENV["APP_HOST"] = "different-url"
     second_call = @link.short_link
 
     assert_equal first_call, second_call
+
+    ENV["APP_HOST"] = original_host
   end
 end
