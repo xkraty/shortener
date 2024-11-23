@@ -1,15 +1,14 @@
-<% short_link = short_url(link.slug) %>
 <div class="bg-white/15 backdrop-blur-lg border border-white/20 rounded-lg p-4 space-y-2 shadow-lg transition duration-300 hover:bg-white/20">
   <div class="flex items-center justify-between gap-2">
-    <%= link_to short_link,
+    <%= link_to link.short_link,
         class: "text-white hover:text-blue-200 transition flex items-center gap-2",
         target: "_blank" do %>
-      <%= short_link %>
+      <%= link.short_link %>
       <svg class="w-4 h-4"><%= render "icons/external_link" %></svg>
     <% end %>
     <button 
       data-controller="clipboard"
-      data-clipboard-text="<%= short_link %>"
+      data-clipboard-text="<%= link.short_link %>"
       data-action="clipboard#copy"
       class="text-white/80 hover:text-white transition"
     >

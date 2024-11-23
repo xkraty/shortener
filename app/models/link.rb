@@ -1,6 +1,6 @@
 class Link < ApplicationRecord
   validates :original_url, presence: true
-  validates :slug, uniqueness: true
+  validates :slug, uniqueness: true, presence: true
 
   def generate_slug
     loop do
@@ -10,5 +10,7 @@ class Link < ApplicationRecord
     end
   end
 
-  def short_url = @short_url ||= "#{ENV.fetch("APP_URL", "localhost/")}/#{slug}"
+  def short_link
+    @short_link ||= Rails.application.routes.url_helpers.short_url(slug, host: ENV.fetch("APP_HOST", "localhost:3000"))
+  end
 end
