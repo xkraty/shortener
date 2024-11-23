@@ -1,6 +1,6 @@
 <div class="bg-white/15 backdrop-blur-lg border border-white/20 rounded-lg p-4 space-y-2 shadow-lg transition duration-300 hover:bg-white/20">
   <div class="flex items-center justify-between gap-2">
-    <%= link_to link.short_link,
+    <%= link_to short_path(link.slug),
         class: "text-white hover:text-blue-200 transition flex items-center gap-2",
         target: "_blank" do %>
       <%= link.short_link %>

@@ -1,5 +1,5 @@
 class Link < ApplicationRecord
-  validates :original_url, presence: true
+  validates :original_url, presence: true, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }
   validates :slug, uniqueness: true, presence: true
 
   def generate_slug

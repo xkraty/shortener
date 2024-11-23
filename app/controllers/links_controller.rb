@@ -22,7 +22,11 @@ class LinksController < ApplicationController
   def redirect
     @link.increment!(:clicks)
 
-    redirect_to @link.original_url, allow_other_host: true
+    if @link.original_url.match?(URI::DEFAULT_PARSER.make_regexp(%w[http https]))
+      redirect_to @link.original_url, allow_other_host: true, status: :moved_permanently
+    else
+      redirect_to root_path, alert: "Invalid URL detected"
+    end
   end
 
   private
