@@ -21,6 +21,8 @@ builder:
   arch: amd64
 
 env:
+  clear:
+    APP_HOST: s.campoli.me
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PORT
