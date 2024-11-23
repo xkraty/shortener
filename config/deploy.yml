@@ -54,13 +54,10 @@ accessories:
         - POSTGRES_PASSWORD
         - POSTGRES_HOST
 
-
   promtail:
     image: grafana/promtail:latest
-    host: s.campoli.me
-    files:
-      - source: config/promtail/config.yml
-        destination: /etc/promtail/config.yml
+    host: your-rails-app-server.com
     volumes:
       - "/var/log:/var/log"
       - "/var/lib/docker/containers:/var/lib/docker/containers:ro"
+      - "./config/promtail:/etc/promtail"
