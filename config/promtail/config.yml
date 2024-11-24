@@ -7,7 +7,7 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  - url: https://conductor.campoli.me/loki/api/v1/push
+  - url: http://conductor.campoli.me:3100/loki/api/v1/push
 
 scrape_configs:
   - job_name: rails_app_logs
