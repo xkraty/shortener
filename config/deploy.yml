@@ -68,5 +68,3 @@ accessories:
     env:
       secret:
         - SIGNOZ_INGESTION_KEY
-    options:
-      restart: unless-stopped
