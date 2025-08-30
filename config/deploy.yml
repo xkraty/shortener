@@ -64,7 +64,7 @@ accessories:
     host: s.campoli.me
     port: "4318:4318"  # HTTP endpoint (most commonly used)
     files:
-      - config/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+      - config/deploy/otel-collector.yaml:/etc/otelcol-contrib/config.yaml
     env:
       secret:
         - SIGNOZ_INGESTION_KEY
