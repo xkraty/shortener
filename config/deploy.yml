@@ -23,16 +23,20 @@ builder:
 env:
   clear:
     APP_HOST: s.campoli.me
-    OTEL_EXPORTER: otlp
-    OTEL_SERVICE_NAME: Shortener
-    OTEL_EXPORTER_OTLP_ENDPOINT: https://ingest.us.signoz.cloud:443
-    OTEL_EXPORTER_OTLP_HEADERS: signoz-ingestion-key=740b0135-1454-475a-b2f5-9e20a8bd5d0e
+    # OTEL configuration for your Rails app
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+    OTEL_SERVICE_NAME: shortener-rails-app
+    # Resource attributes for better service identification
+    OTEL_RESOURCE_ATTRIBUTES: service.name=shortener-rails-app,service.version=1.0.0,deployment.environment=production
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PORT
     - POSTGRES_USER
     - POSTGRES_PASSWORD
     - POSTGRES_HOST
+    # SignOz Cloud credentials (use ingestion key, not access token)
+    - SIGNOZ_INGESTION_KEY
+
 aliases:
   console: app exec --interactive --reuse "bin/rails console"
   shell: app exec --interactive --reuse "bash"
@@ -54,3 +58,13 @@ accessories:
         - POSTGRES_USER
         - POSTGRES_PASSWORD
         - POSTGRES_HOST
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.130.1
+    host: s.campoli.me
+    port: "4318:4318"  # HTTP endpoint (most commonly used)
+    files:
+      - config/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
+    env:
+      secret:
+        - SIGNOZ_INGESTION_KEY

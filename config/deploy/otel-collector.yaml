@@ -1,0 +1,85 @@
+# config/otel-collector-config.yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  # Collect system metrics from the server
+  hostmetrics:
+    collection_interval: 60s
+    scrapers:
+      cpu: {}
+      disk: {}
+      load: {}
+      filesystem: {}
+      memory: {}
+      network: {}
+      paging: {}
+      process:
+        mute_process_name_error: true
+        mute_process_exe_error: true
+        mute_process_io_error: true
+      processes: {}
+
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+
+  # Adds resource attributes like hostname, OS info
+  resourcedetection:
+    detectors: [env, system]
+    timeout: 2s
+    system:
+      hostname_sources: [os]
+
+extensions:
+  health_check: {}
+  zpages: {}
+
+exporters:
+  otlp:
+    endpoint: "ingest.{region}.signoz.cloud:443"  # Replace {region} with your actual region
+    tls:
+      insecure: false
+    headers:
+      "signoz-ingestion-key": "${SIGNOZ_INGESTION_KEY}"
+
+  # Useful for debugging
+  debug:
+    verbosity: normal
+
+service:
+  telemetry:
+    metrics:
+      level: basic
+  
+  extensions: [health_check, zpages]
+  
+  pipelines:
+    # Application traces from your Rails app
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+
+    # Application metrics from your Rails app
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+
+    # System/host metrics from the server
+    metrics/internal:
+      receivers: [hostmetrics]
+      processors: [resourcedetection, batch]
+      exporters: [otlp]
+
+    # Application logs from your Rails app
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
