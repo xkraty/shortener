@@ -23,6 +23,10 @@ builder:
 env:
   clear:
     APP_HOST: s.campoli.me
+    OTEL_EXPORTER: otlp
+    OTEL_SERVICE_NAME: Shortener
+    OTEL_EXPORTER_OTLP_ENDPOINT: https://ingest.us.signoz.cloud:443
+    OTEL_EXPORTER_OTLP_HEADERS: signoz-ingestion-key=740b0135-1454-475a-b2f5-9e20a8bd5d0e
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_PORT
