@@ -23,8 +23,8 @@ builder:
 env:
   clear:
     APP_HOST: s.campoli.me
-    # OTEL configuration for your Rails app
-    OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+    # OTEL configuration for your Rails app - correct container hostname
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://shortener-otel-collector:4318
     OTEL_SERVICE_NAME: shortener-rails-app
     # Resource attributes for better service identification
     OTEL_RESOURCE_ATTRIBUTES: service.name=shortener-rails-app,service.version=1.0.0,deployment.environment=production
@@ -64,7 +64,9 @@ accessories:
     host: s.campoli.me
     port: "4318:4318"  # HTTP endpoint (most commonly used)
     files:
-      - config/deploy/otel-collector.yaml:/etc/otelcol-contrib/config.yaml
+      - config/otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
     env:
       secret:
         - SIGNOZ_INGESTION_KEY
+    options:
+      restart: unless-stopped

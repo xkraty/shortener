@@ -18,11 +18,7 @@ receivers:
       memory: {}
       network: {}
       paging: {}
-      process:
-        mute_process_name_error: true
-        mute_process_exe_error: true
-        mute_process_io_error: true
-      processes: {}
+      # Removed process scraper to avoid /etc/passwd errors in container
 
 processors:
   batch:
@@ -42,7 +38,11 @@ extensions:
 
 exporters:
   otlp:
-    endpoint: "ingest.{region}.signoz.cloud:443"  # Replace {region} with your actual region
+    # IMPORTANT: Replace with your actual region (us, eu, or in)
+    # For US: ingest.us.signoz.cloud:443
+    # For EU: ingest.eu.signoz.cloud:443  
+    # For India: ingest.in.signoz.cloud:443
+    endpoint: "ingest.us.signoz.cloud:443"  # Change 'us' to your region
     tls:
       insecure: false
     headers:
