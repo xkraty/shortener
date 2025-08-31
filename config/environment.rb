@@ -1,4 +1,6 @@
 require "opentelemetry/sdk"
+require "opentelemetry-instrumentation-logger"
+
 # Load the Rails application.
 require_relative "application"
 
