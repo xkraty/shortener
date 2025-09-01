@@ -25,6 +25,7 @@ env:
     APP_HOST: s.campoli.me
     # OTEL configuration for your Rails app - correct container hostname
     OTEL_EXPORTER_OTLP_ENDPOINT: http://shortener-otel-collector:4318
+    OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: http://shortener-otel-collector:4318
     OTEL_TRACES_EXPORTER: 'otlp'
     OTEL_LOG_LEVEL: 'debug'
     OTEL_SERVICE_NAME: TheShortener
