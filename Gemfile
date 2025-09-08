@@ -38,6 +38,8 @@ gem "thruster", require: false
 # Add these gems
 gem "tailwindcss-rails", "~> 3.3"
 
+gem "elastic-apm", "~> 4.8"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -59,7 +61,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "opentelemetry-sdk", "~> 1.8"
-gem "opentelemetry-exporter-otlp", "~> 0.30.0"
-gem "opentelemetry-instrumentation-all", "~> 0.80.0"
