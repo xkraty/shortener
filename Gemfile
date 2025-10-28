@@ -36,7 +36,7 @@ gem "thruster", require: false
 # gem "image_processing", "~> 1.2"
 
 # Add these gems
-gem "tailwindcss-rails", "~> 3.3"
+gem "tailwindcss-rails", "~> 4.4"
 
 gem "elastic-apm", "~> 4.8"
 
