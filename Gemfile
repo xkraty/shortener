@@ -38,7 +38,7 @@ gem "thruster", require: false
 # Add these gems
 gem "tailwindcss-rails", "~> 3.3"
 
-gem "elastic-apm", "~> 4.8"
+gem "elastic-apm", "~> 4.9"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
