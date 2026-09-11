@@ -33,6 +33,16 @@
             <%= button_to "Sign out", session_path, method: :delete,
                 class: "hover:text-green-ink transition-colors shrink-0" %>
           </nav>
+        <% else %>
+          <nav class="flex items-center gap-5 text-sm">
+            <% unless current_page?(new_session_path) %>
+              <%= link_to "Sign in", new_session_path, class: "text-txt-dim hover:text-green-ink transition-colors" %>
+            <% end %>
+            <% unless current_page?(new_registration_path) %>
+              <%= link_to "Create account", new_registration_path,
+                  class: "font-medium text-green-ink hover:text-green-lift transition-colors" %>
+            <% end %>
+          </nav>
         <% end %>
       </div>
     </header>

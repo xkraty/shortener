@@ -37,4 +37,11 @@
   h1, h2, h3, h4 {
     @apply font-display text-ink;
   }
+  /* Browsers default unknown custom elements to `display: inline`, which
+     breaks Tailwind's `space-y-*` utilities (they space siblings via
+     margin-bottom, a no-op on inline boxes) whenever a turbo-frame sits
+     between other children. */
+  turbo-frame {
+    @apply block;
+  }
 }

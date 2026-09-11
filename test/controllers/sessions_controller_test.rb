@@ -25,7 +25,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     delete session_path
 
     assert_redirected_to new_session_path
+
     get root_path
-    assert_redirected_to new_session_path
+    assert_response :success
+    assert_select "a[href=?]", new_session_path
   end
 end

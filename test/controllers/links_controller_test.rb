@@ -11,10 +11,12 @@ class LinksControllerTest < ActionDispatch::IntegrationTest
     post session_path, params: { email_address: user.email_address, password: "supersecretpass" }
   end
 
-  test "index requires sign-in" do
+  test "index shows a landing page when signed out" do
     get root_path
 
-    assert_redirected_to new_session_path
+    assert_response :success
+    assert_select "a[href=?]", new_session_path
+    assert_select "a[href=?]", new_registration_path
   end
 
   test "index only shows the current user's links" do

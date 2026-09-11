@@ -1,10 +1,12 @@
 class LinksController < ApplicationController
-  # Anyone can follow a short link — only making one requires an account.
-  allow_unauthenticated_access only: :redirect
+  # Anyone can follow a short link or see the landing page — only making a link requires an account.
+  allow_unauthenticated_access only: %i[index redirect]
 
   before_action :set_link, only: %i[redirect]
 
   def index
+    return render :landing unless authenticated?
+
     @recent_links = current_user.links.order(created_at: :desc).limit(5)
   end
 
