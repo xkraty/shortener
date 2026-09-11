@@ -10,6 +10,7 @@ class LinksController < ApplicationController
 
     if @link.save
       render turbo_stream: [
+        turbo_stream.remove("links_empty_state"),
         turbo_stream.prepend("links_list_content", partial: "links/link", locals: { link: @link }),
         turbo_stream.update("url_form", partial: "links/form", locals: { link: Link.new }),
         turbo_stream.update("generated_link", partial: "links/generated_link", locals: { link: @link })
