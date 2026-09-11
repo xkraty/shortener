@@ -1,7 +1,11 @@
 /* ===================================================================
-   Design tokens shared across the personal suite — same mark, same
-   green, same type as campoli.me. See campoli's DESIGN.md for the
-   full rationale (Three Renditions Rule, Single Signal Rule).
+   Self-hosted brand type, shared across the personal suite — same
+   fonts as campoli.me. Loaded as its own stylesheet, independent of
+   the Tailwind build (see campoli's own app/assets/tailwind/application.css,
+   which is just `@import "tailwindcss";` — fonts and colors live outside
+   the Tailwind pipeline there too). Color/radius/shadow tokens live in
+   app/assets/tailwind/application.css's `@theme` block instead, since
+   those need to be visible to Tailwind at build time.
    =================================================================== */
 
 @font-face { font-family: 'Outfit'; src: url('Outfit-latin.woff2') format('woff2-variations');
@@ -17,32 +21,3 @@
                             U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
                             U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
                             U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF }
-
-:root {
-  --display: 'Outfit', system-ui, -apple-system, sans-serif;
-  --body: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-  /* paper ground */
-  --paper: #f3f2f2;
-  --paper-lift: #ffffff;
-
-  /* type */
-  --ink: #201e1d;
-  --txt: #46423f;
-  --txt-dim: #655f59;
-  --on-green: #ffffff;
-
-  /* the single signal — see DESIGN.md, "The Three Renditions Rule" */
-  --green: #0f7a5a;      /* paper: objects only */
-  --green-ink: #0a5c44;  /* paper: text and hairlines */
-  --green-lift: #22a077; /* dark ground only */
-  --green-tint: #e6f2ee; /* light fill for notices, badges */
-
-  --hair: rgba(32, 30, 29, .17);
-
-  /* the one inverted surface */
-  --dark: #101d18;
-  --dark-2: #0a1410;
-  --on-dark: #f3f2f2;
-  --on-dark-dim: #9aa8a1;
-}

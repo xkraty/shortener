@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* Brand tokens from campoli's DESIGN.md — same palette, radii, and
+   elevation as the rest of the personal suite. Values are literal here
+   (not var()-based) because Tailwind's @theme reads them at build time. */
+@theme {
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #f3f2f2;
+  --color-paper-lift: #ffffff;
+  --color-ink: #201e1d;
+  --color-txt: #46423f;
+  --color-txt-dim: #655f59;
+  --color-on-green: #ffffff;
+  --color-green: #0f7a5a;
+  --color-green-ink: #0a5c44;
+  --color-green-lift: #22a077;
+  --color-green-tint: #e6f2ee;
+  --color-dark: #101d18;
+  --color-dark-2: #0a1410;
+  --color-on-dark: #f3f2f2;
+  --color-on-dark-dim: #9aa8a1;
+  --color-hair: rgba(32, 30, 29, 0.17);
+
+  --radius-plate: 3px;
+  --radius-panel: 4px;
+
+  --shadow-board: 0 6px 14px rgba(32, 30, 29, 0.16);
+  --shadow-board-sm: 0 2px 8px rgba(32, 30, 29, 0.1);
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-txt font-sans;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display text-ink;
+  }
+}

@@ -1,16 +1,14 @@
-<%= form_with(model: link, class: "space-y-3") do |f| %>
-  <% if link.errors.any? %>
-    <div class="bg-red-50 text-red-700 text-sm rounded-panel px-4 py-3">
-      <%= link.errors.full_messages.to_sentence %>
-    </div>
-  <% end %>
-
+<%= form_with(model: link, class: "space-y-2") do |f| %>
   <div class="flex flex-col sm:flex-row gap-3">
     <%= f.url_field :original_url,
-        class: "flex-1 min-w-0 px-5 py-3.5 bg-paper-lift border border-hair rounded-panel text-ink placeholder-txt-dim shadow-board-sm focus:ring-2 focus:ring-green focus:border-transparent outline-none transition",
+        class: "flex-1 min-w-0 px-5 py-3.5 bg-paper-lift border #{link.errors[:original_url].any? ? "border-red-300 focus:ring-red-500" : "border-hair focus:ring-green"} rounded-panel text-ink placeholder-txt-dim shadow-board-sm focus:ring-2 focus:border-transparent outline-none transition",
         placeholder: "Paste your long URL here..." %>
 
     <%= f.submit "Shorten",
         class: "bg-green hover:bg-green-ink text-on-green font-medium py-3.5 px-7 rounded-plate transition-colors cursor-pointer shrink-0" %>
   </div>
+
+  <% if link.errors[:original_url].any? %>
+    <p class="text-sm text-red-600 px-1"><%= link.errors[:original_url].first %></p>
+  <% end %>
 <% end %>
