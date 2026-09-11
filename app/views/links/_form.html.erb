@@ -1,8 +1,14 @@
-<%= form_with(model: link, class: "space-y-4") do |f| %>
-  <%= f.url_field :original_url, 
-      class: "w-full px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-white/70 focus:ring-2 focus:ring-white/50 focus:border-transparent outline-none transition shadow-lg",
-      placeholder: "Paste your long URL here..." %>
-  
-  <%= f.submit "Shorten URL", 
-      class: "w-full bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-medium py-4 px-6 rounded-xl transition duration-300 ease-in-out shadow-lg hover:shadow-xl" %>
+<%= form_with(model: link, class: "space-y-2") do |f| %>
+  <div class="flex flex-col sm:flex-row gap-3">
+    <%= f.url_field :original_url,
+        class: "flex-1 min-w-0 px-4 py-3 bg-white border #{link.errors[:original_url].any? ? "border-red-300 focus:ring-red-500 focus:border-red-500" : "border-slate-200 focus:ring-indigo-500 focus:border-indigo-500"} rounded-xl text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition",
+        placeholder: "https://example.com/your-long-url" %>
+
+    <%= f.submit "Shorten",
+        class: "shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-xl transition shadow-sm hover:shadow-md cursor-pointer" %>
+  </div>
+
+  <% if link.errors[:original_url].any? %>
+    <p class="text-sm text-red-600 px-1"><%= link.errors[:original_url].first %></p>
+  <% end %>
 <% end %>

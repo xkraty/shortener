@@ -31,10 +31,6 @@ env:
     OTEL_SERVICE_NAME: TheShortener
   secret:
     - RAILS_MASTER_KEY
-    - POSTGRES_PORT
-    - POSTGRES_USER
-    - POSTGRES_PASSWORD
-    - POSTGRES_HOST
     # SignOz Cloud credentials (use ingestion key, not access token)
     - SIGNOZ_INGESTION_KEY
 
@@ -46,16 +42,6 @@ aliases:
 
 asset_path: /rails/public/assets
 
-accessories:
-  db:
-    image: postgres:17.2-alpine
-    host: s.campoli.me
-    port: "127.0.0.1:5433:5432"
-    directories:
-      - data:/var/lib/postgresql/data
-    env:
-      secret:
-        - POSTGRES_PORT
-        - POSTGRES_USER
-        - POSTGRES_PASSWORD
-        - POSTGRES_HOST
+# Use a persistent storage volume so the SQLite database survives deploys.
+volumes:
+  - "shortener_storage:/rails/storage"
