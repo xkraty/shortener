@@ -1,15 +1,20 @@
 class LinksController < ApplicationController
+  # Anyone can follow a short link — only making one requires an account.
+  allow_unauthenticated_access only: :redirect
+
   before_action :set_link, only: %i[redirect]
+
   def index
-    @recent_links = Link.order(created_at: :desc).limit(5)
+    @recent_links = current_user.links.order(created_at: :desc).limit(5)
   end
 
   def create
-    @link = Link.new(link_params)
+    @link = current_user.links.new(link_params)
     @link.generate_slug
 
     if @link.save
       render turbo_stream: [
+        turbo_stream.remove("no_links_placeholder"),
         turbo_stream.prepend("links_list_content", partial: "links/link", locals: { link: @link }),
         turbo_stream.update("url_form", partial: "links/form", locals: { link: Link.new }),
         turbo_stream.update("generated_link", partial: "links/generated_link", locals: { link: @link })

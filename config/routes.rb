@@ -9,8 +9,18 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  resource :session, only: %i[new create destroy]
+  resource :registration, only: %i[new create]
+
+  namespace :admin do
+    root "dashboard#show"
+    resources :links, only: %i[destroy]
+  end
+
   # Defines the root path route ("/")
   root "links#index"
-  get "/:slug", to: "links#redirect", as: :short
   resources :links, only: %i[create]
+
+  # Must stay last: a bare "/:slug" would otherwise swallow every route above it.
+  get "/:slug", to: "links#redirect", as: :short
 end
