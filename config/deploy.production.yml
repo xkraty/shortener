@@ -1,0 +1,10 @@
+servers:
+  web:
+    - thor.campoli.me
+
+proxy:
+  host: s.campoli.me
+
+env:
+  clear:
+    APP_HOST: s.campoli.me
