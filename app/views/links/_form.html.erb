@@ -1,11 +1,11 @@
 <%= form_with(model: link, class: "space-y-2") do |f| %>
   <div class="flex flex-col sm:flex-row gap-3">
     <%= f.url_field :original_url,
-        class: "flex-1 min-w-0 px-4 py-3 bg-white border #{link.errors[:original_url].any? ? "border-red-300 focus:ring-red-500 focus:border-red-500" : "border-slate-200 focus:ring-indigo-500 focus:border-indigo-500"} rounded-xl text-slate-900 placeholder-slate-400 shadow-sm focus:ring-2 outline-none transition",
-        placeholder: "https://example.com/your-long-url" %>
+        class: "flex-1 min-w-0 px-5 py-3.5 bg-paper-lift border #{link.errors[:original_url].any? ? "border-red-300 focus:ring-red-500" : "border-hair focus:ring-green"} rounded-panel text-ink placeholder-txt-dim shadow-board-sm focus:ring-2 focus:border-transparent outline-none transition",
+        placeholder: "Paste your long URL here..." %>
 
     <%= f.submit "Shorten",
-        class: "shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-6 rounded-xl transition shadow-sm hover:shadow-md cursor-pointer" %>
+        class: "bg-green hover:bg-green-ink text-on-green font-medium py-3.5 px-7 rounded-plate transition-colors cursor-pointer shrink-0" %>
   </div>
 
   <% if link.errors[:original_url].any? %>

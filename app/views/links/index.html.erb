@@ -1,36 +1,32 @@
-<div class="min-h-screen">
-  <div class="mx-auto max-w-2xl px-4 py-16 sm:py-24">
-    <div class="text-center mb-10">
-      <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-600 text-white mb-4 shadow-lg shadow-indigo-600/20">
-        <svg class="w-6 h-6"><%= render "icons/link" %></svg>
-      </div>
-      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Shorten your links</h1>
-      <p class="mt-2 text-slate-500">Paste a long URL and get a short, shareable link instantly.</p>
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-10">
+  <div class="text-center space-y-2">
+    <%= image_tag "logo/mark.svg", alt: "", class: "w-10 h-10 mx-auto mb-2" %>
+    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-ink tracking-tight">Shorten a link</h1>
+    <p class="text-txt-dim">Paste a URL, get one back you can share.</p>
+  </div>
+
+  <%= turbo_frame_tag "url_form" do %>
+    <%= render "links/form", link: Link.new %>
+  <% end %>
+
+  <%= turbo_frame_tag "generated_link" %>
+
+  <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm p-6">
+    <div class="flex items-center gap-2 text-ink mb-5">
+      <svg class="w-4 h-4 text-green-ink"><%= render "icons/clock" %></svg>
+      <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-txt-dim">Your links</h2>
     </div>
 
-    <%= turbo_frame_tag "url_form" do %>
-      <%= render "links/form", link: Link.new %>
+    <%= turbo_frame_tag "links_list" do %>
+      <div class="space-y-3" id="links_list_content">
+        <% if @recent_links.any? %>
+          <%= render partial: "links/link", collection: @recent_links %>
+        <% else %>
+          <p id="links_empty_state" class="text-txt-dim text-sm text-center py-10 border border-dashed border-hair rounded-panel">
+            No links yet — shorten your first one above.
+          </p>
+        <% end %>
+      </div>
     <% end %>
-
-    <%= turbo_frame_tag "generated_link" %>
-
-    <div class="mt-14">
-      <div class="flex items-center gap-2 mb-4">
-        <svg class="w-4 h-4 text-slate-400"><%= render "icons/clock" %></svg>
-        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">Recent Links</h2>
-      </div>
-
-      <%= turbo_frame_tag "links_list" do %>
-        <div class="space-y-3" id="links_list_content">
-          <% if @recent_links.any? %>
-            <%= render partial: "links/link", collection: @recent_links %>
-          <% else %>
-            <p id="links_empty_state" class="text-sm text-slate-400 text-center py-10 border border-dashed border-slate-200 rounded-xl">
-              No links yet — your shortened URLs will show up here.
-            </p>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
   </div>
 </div>

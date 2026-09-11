@@ -1,8 +1,8 @@
-<div class="mt-6 rounded-xl border border-indigo-100 bg-indigo-50/60 p-4">
-  <div class="text-xs font-medium uppercase tracking-wide text-indigo-500 mb-2">Your shortened URL</div>
-  <div class="flex items-center justify-between gap-3">
+<div class="bg-green-tint border border-hair rounded-panel p-4 space-y-2 mt-3">
+  <div class="text-green-ink text-xs font-bold uppercase tracking-[0.12em]">Your shortened URL</div>
+  <div class="flex items-center justify-between gap-4">
     <%= link_to link.short_link,
-        class: "text-indigo-700 hover:text-indigo-900 font-medium truncate flex items-center gap-1.5 min-w-0",
+        class: "text-green-ink font-medium hover:underline flex items-center gap-2 min-w-0 truncate",
         target: "_blank" do %>
       <span class="truncate"><%= link.short_link %></span>
       <svg class="w-4 h-4 shrink-0"><%= render "icons/external_link" %></svg>
@@ -11,7 +11,7 @@
       data-controller="clipboard"
       data-clipboard-text="<%= link.short_link %>"
       data-action="clipboard#copy"
-      class="shrink-0 flex items-center gap-1.5 text-sm font-medium text-indigo-700 hover:text-indigo-900 bg-white hover:bg-indigo-50 border border-indigo-200 transition px-3 py-1.5 rounded-lg"
+      class="flex items-center gap-2 text-txt hover:text-ink transition-colors px-4 py-2 rounded-plate bg-paper-lift border border-hair shrink-0"
     >
       <svg class="w-4 h-4" data-clipboard-target="icon"><%= render "icons/copy" %></svg>
       <span data-clipboard-target="text">Copy</span>

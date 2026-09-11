@@ -1,0 +1,81 @@
+<% total_clicks = @links.sum(&:clicks) %>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-10">
+  <h1 class="text-3xl font-display font-semibold text-ink tracking-tight">Admin</h1>
+
+  <div class="grid grid-cols-3 gap-3 sm:gap-4">
+    <% [["Users", @users.length], ["Links", @links.size], ["Clicks", total_clicks]].each do |label, n| %>
+      <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm p-4 sm:p-5">
+        <p class="text-2xl sm:text-3xl font-display font-semibold text-ink"><%= n %></p>
+        <p class="text-xs font-bold uppercase tracking-[0.12em] text-txt-dim mt-0.5"><%= label %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <section class="space-y-3">
+    <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-txt-dim">Users</h2>
+    <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm overflow-hidden">
+      <table class="w-full text-sm text-left">
+        <thead>
+          <tr class="border-b border-hair">
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Email</th>
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Role</th>
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Links</th>
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Clicks</th>
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Joined</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-hair">
+          <% @users.each do |user| %>
+            <tr>
+              <td class="px-4 py-3 text-ink"><%= user.email_address %></td>
+              <td class="px-4 py-3">
+                <% if user.admin? %>
+                  <span class="inline-block bg-green-tint text-green-ink text-xs font-bold uppercase tracking-wide px-2 py-0.5 rounded-plate">Admin</span>
+                <% else %>
+                  <span class="text-txt-dim">User</span>
+                <% end %>
+              </td>
+              <td class="px-4 py-3 text-txt-dim"><%= user.links_count %></td>
+              <td class="px-4 py-3 text-txt-dim"><%= user.clicks_count %></td>
+              <td class="px-4 py-3 text-txt-dim"><%= user.created_at.to_date.iso8601 %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="space-y-3">
+    <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-txt-dim">All links</h2>
+    <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm overflow-hidden">
+      <table class="w-full text-sm text-left">
+        <thead>
+          <tr class="border-b border-hair">
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Short link</th>
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Destination</th>
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Owner</th>
+            <th class="px-4 py-2.5 font-semibold text-txt-dim text-xs uppercase tracking-wide">Clicks</th>
+            <th class="px-4 py-2.5"></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-hair">
+          <% @links.each do |link| %>
+            <tr>
+              <td class="px-4 py-3">
+                <%= link_to link.slug, short_path(link.slug), target: "_blank", class: "text-green-ink font-medium hover:underline" %>
+              </td>
+              <td class="px-4 py-3 text-txt-dim truncate max-w-xs" title="<%= link.original_url %>"><%= link.original_url %></td>
+              <td class="px-4 py-3 text-txt-dim"><%= link.user&.email_address || "—" %></td>
+              <td class="px-4 py-3 text-txt-dim"><%= link.clicks %></td>
+              <td class="px-4 py-3 text-right">
+                <%= button_to "Remove", admin_link_path(link), method: :delete,
+                    class: "text-red-700 hover:underline text-sm bg-transparent p-0",
+                    form: { data: { turbo_confirm: "Remove this link?" } } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
