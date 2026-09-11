@@ -1,29 +1,28 @@
-<%# app/views/home/index.html.erb %>
-<div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-r from-blue-400 via-blue-600 to-purple-500">
-  <div class="absolute inset-0 bg-gradient-to-r from-blue-400 via-blue-600 to-purple-500 opacity-75 animate-[gradient_15s_ease_infinite] bg-[length:400%_400%]"></div>
+<div class="max-w-2xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-10">
+  <div class="text-center space-y-2">
+    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-ink tracking-tight">Shorten a link</h1>
+    <p class="text-txt-dim">Paste a URL, get one back you can share.</p>
+  </div>
 
-  <div class="z-10 w-full max-w-3xl space-y-8">
-    <h1 class="text-4xl font-bold text-center text-white mb-8 drop-shadow-lg">
-      URL Shortener
-    </h1>
-    
-    <%= turbo_frame_tag "url_form" do %>
-      <%= render "links/form", link: Link.new %>
-    <% end %>
-  
-    <%= turbo_frame_tag "generated_link" %>
+  <%= turbo_frame_tag "url_form" do %>
+    <%= render "links/form", link: Link.new %>
+  <% end %>
 
-    <div class="bg-white/15 backdrop-blur-lg border border-white/20 rounded-xl p-6 shadow-lg">
-      <div class="flex items-center gap-2 text-white mb-4">
-        <svg class="w-5 h-5"><%= render "icons/clock" %></svg>
-        <h2 class="text-xl font-semibold">Recent Links</h2>
-      </div>
-      
-      <%= turbo_frame_tag "links_list" do %>
-        <div class="space-y-4" id="links_list_content">
-          <%= render partial: "links/link", collection: @recent_links %>
-        </div>
-      <% end %>
+  <%= turbo_frame_tag "generated_link" %>
+
+  <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm p-6">
+    <div class="flex items-center gap-2 text-ink mb-5">
+      <svg class="w-4 h-4 text-green-ink"><%= render "icons/clock" %></svg>
+      <h2 class="text-xs font-bold uppercase tracking-[0.16em] text-txt-dim">Your links</h2>
     </div>
+
+    <%= turbo_frame_tag "links_list" do %>
+      <div class="space-y-3" id="links_list_content">
+        <%= render partial: "links/link", collection: @recent_links %>
+        <% if @recent_links.empty? %>
+          <p id="no_links_placeholder" class="text-txt-dim text-sm text-center py-6">No links yet — shorten your first one above.</p>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

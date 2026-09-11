@@ -1,17 +1,17 @@
-<div class="bg-white/15 backdrop-blur-lg border border-white/20 rounded-xl p-4 space-y-2 shadow-lg mt-8">
-  <div class="text-white/60 text-sm">Your shortened URL:</div>
+<div class="bg-green-tint border border-hair rounded-panel p-4 space-y-2 mt-3">
+  <div class="text-green-ink text-xs font-bold uppercase tracking-[0.12em]">Your shortened URL</div>
   <div class="flex items-center justify-between gap-4">
     <%= link_to link.short_link,
-        class: "text-white hover:text-blue-200 transition flex items-center gap-2",
+        class: "text-green-ink font-medium hover:underline flex items-center gap-2 min-w-0 truncate",
         target: "_blank" do %>
-      <%= link.short_link %>
-      <svg class="w-4 h-4"><%= render "icons/external_link" %></svg>
+      <span class="truncate"><%= link.short_link %></span>
+      <svg class="w-4 h-4 shrink-0"><%= render "icons/external_link" %></svg>
     <% end %>
-    <button 
+    <button
       data-controller="clipboard"
       data-clipboard-text="<%= link.short_link %>"
       data-action="clipboard#copy"
-      class="flex items-center gap-2 text-white/80 hover:text-white transition px-4 py-2 rounded-lg bg-white/15 backdrop-blur-lg border border-white/20"
+      class="flex items-center gap-2 text-txt hover:text-ink transition-colors px-4 py-2 rounded-plate bg-paper-lift border border-hair shrink-0"
     >
       <svg class="w-4 h-4" data-clipboard-target="icon"><%= render "icons/copy" %></svg>
       <span data-clipboard-target="text">Copy</span>

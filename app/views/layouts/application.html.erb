@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>URL Shortener</title>
+    <title>Links</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="<%= asset_path("logo/mark.svg") %>">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tokens", "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main>
+  <body class="min-h-screen flex flex-col">
+    <header class="bg-paper-lift shadow-board-sm relative z-10">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+        <%= link_to root_path, class: "flex items-center gap-2.5 shrink-0" do %>
+          <%= image_tag "logo/mark.svg", alt: "", class: "w-7 h-7" %>
+          <span class="font-display font-semibold text-ink text-lg tracking-tight">Links</span>
+        <% end %>
+
+        <% if authenticated? %>
+          <nav class="flex items-center gap-5 text-sm text-txt-dim min-w-0">
+            <% if current_user.admin? %>
+              <%= link_to "Admin", admin_root_path, class: "font-medium hover:text-green-ink transition-colors" %>
+            <% end %>
+            <span class="truncate max-w-[12rem] hidden sm:inline"><%= current_user.email_address %></span>
+            <%= button_to "Sign out", session_path, method: :delete,
+                class: "hover:text-green-ink transition-colors shrink-0" %>
+          </nav>
+        <% end %>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <% if notice.present? %>
+        <p class="max-w-3xl mx-auto mt-6 px-4 sm:px-6 py-3 bg-green-tint text-green-ink text-sm rounded-panel"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="max-w-3xl mx-auto mt-6 px-4 sm:px-6 py-3 bg-red-50 text-red-700 text-sm rounded-panel"><%= alert %></p>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>
