@@ -1,35 +1,41 @@
-<div class="max-w-2xl mx-auto px-4 sm:px-6 py-16 sm:py-24 space-y-12">
-  <div class="text-center space-y-4">
+<div class="max-w-xl mx-auto px-4 sm:px-6 py-16 sm:py-24 space-y-10">
+  <div class="text-center space-y-3">
     <%= image_tag "logo/mark.svg", alt: "", class: "w-12 h-12 mx-auto mb-2" %>
-    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-ink tracking-tight">Short links for your own stuff</h1>
-    <p class="text-txt-dim max-w-md mx-auto">
+    <h1 class="text-3xl sm:text-4xl font-display font-semibold text-ink tracking-tight">Make it short.</h1>
+    <p class="text-txt-dim max-w-sm mx-auto">
       Paste a long URL, get back a short <%= ENV.fetch("APP_HOST", "localhost:3000") %> link you can share —
-      with click counts, all under your own account.
+      with click tracking, under your own account.
     </p>
+  </div>
 
-    <div class="flex items-center justify-center gap-3 pt-2">
-      <%= link_to "Sign in", new_session_path,
-          class: "bg-green hover:bg-green-ink text-on-green font-medium py-3 px-6 rounded-plate transition-colors" %>
-      <%= link_to "Create account", new_registration_path,
-          class: "bg-paper-lift border border-hair hover:border-green text-ink font-medium py-3 px-6 rounded-plate transition-colors" %>
+  <div class="bg-paper-lift border border-hair rounded-panel shadow-board p-5 sm:p-6 space-y-3">
+    <div class="flex items-center gap-2.5 px-4 py-3 bg-paper border border-hair rounded-panel text-txt-dim">
+      <svg class="w-4 h-4 shrink-0 opacity-60"><%= render "icons/link" %></svg>
+      <span class="truncate font-mono text-sm">https://example.com/blog/2026/the-thing-i-wanted-to-share?utm_source=friend&amp;utm_medium=text</span>
+    </div>
+
+    <div class="flex justify-center">
+      <svg class="w-4 h-4 text-txt-dim/60"><%= render "icons/arrow_down" %></svg>
+    </div>
+
+    <div class="flex items-center justify-between gap-2.5 px-4 py-3 bg-green-tint rounded-panel">
+      <span class="truncate font-mono text-sm font-medium text-green-ink"><%= ENV.fetch("APP_HOST", "localhost:3000") %>/aZ3kq1</span>
+      <span class="shrink-0 flex items-center gap-1 text-xs text-green-ink/70">
+        <svg class="w-3.5 h-3.5"><%= render "icons/click" %></svg>
+        tracked
+      </span>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-    <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm p-5 space-y-2">
-      <svg class="w-5 h-5 text-green-ink"><%= render "icons/link" %></svg>
-      <p class="font-medium text-ink">Shorten anything</p>
-      <p class="text-sm text-txt-dim">Turn a long URL into a short, shareable link in one paste.</p>
+  <div class="text-center space-y-3">
+    <div class="flex items-center justify-center gap-3">
+      <%= link_to "Create account", new_registration_path,
+          class: "bg-green hover:bg-green-ink text-on-green font-medium py-3 px-6 rounded-plate transition-colors" %>
+      <%= link_to "Sign in", new_session_path,
+          class: "bg-paper-lift border border-hair hover:border-green text-ink font-medium py-3 px-6 rounded-plate transition-colors" %>
     </div>
-    <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm p-5 space-y-2">
-      <svg class="w-5 h-5 text-green-ink"><%= render "icons/click" %></svg>
-      <p class="font-medium text-ink">Track clicks</p>
-      <p class="text-sm text-txt-dim">Every link keeps a running count of how many times it's been opened.</p>
-    </div>
-    <div class="bg-paper-lift border border-hair rounded-panel shadow-board-sm p-5 space-y-2">
-      <svg class="w-5 h-5 text-green-ink"><%= render "icons/clock" %></svg>
-      <p class="font-medium text-ink">Yours, privately</p>
-      <p class="text-sm text-txt-dim">Sign in to see your links — anyone can follow one, only you can list them.</p>
-    </div>
+    <p class="text-xs text-txt-dim">
+      Anyone can follow a short link — signing in is only needed to create and manage your own.
+    </p>
   </div>
 </div>
