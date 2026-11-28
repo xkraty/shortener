@@ -40,7 +40,7 @@ gem "tailwindcss-rails", "~> 4.7"
 # Pinned: tailwindcss-ruby 4.3.4 ships a Bun-compiled CLI that aborts under
 # qemu, which breaks assets:precompile when Kamal cross-builds amd64 on an
 # arm64 Mac. Unpin once upstream Bun handles emulation.
-gem "tailwindcss-ruby", "4.3.3"
+gem "tailwindcss-ruby", "4.3.4"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
